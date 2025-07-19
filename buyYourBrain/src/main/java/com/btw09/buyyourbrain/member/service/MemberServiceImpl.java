@@ -2,10 +2,13 @@ package com.btw09.buyyourbrain.member.service;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.btw09.buyyourbrain.member.dao.MemberDao;
 import com.btw09.buyyourbrain.member.vo.Member;
+import com.btw09.buyyourbrain.member.vo.MemberExpert;
 
+@Service
 public class MemberServiceImpl implements MemberService {
 	
 	 @Autowired
@@ -14,16 +17,26 @@ public class MemberServiceImpl implements MemberService {
 	 @Autowired
 		private SqlSessionTemplate sqlSession;
 
-	 	//회원가입
+	 	//일반 유저 회원가입
 	    @Override
 	    public int insertMember(Member m) {
 	        return dao.insertMember(sqlSession,m);
 	    }
+	    
+	    //고수 유저 회원가입
+	    @Override
+	    public int insertExpert(MemberExpert expert) {
+	    	return dao.insertExpert(sqlSession, expert);
+	    }
+	    
+	    
+	    //로그인
+	    @Override
+		public Member loginMember(Member m) {
 
-	    //로그인 수정필요
-//	    @Override
-//	    public Member loginMember(String userId) {
-//	        return memberDao.selectMemberById(userId);
-//	    }
+			Member loginUser = dao.loginMember(sqlSession,m);
+			
+			return loginUser;
+		}
 
 }

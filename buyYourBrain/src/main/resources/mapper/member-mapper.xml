@@ -5,16 +5,23 @@
 
 <mapper namespace="memberMapper">
 
-<insert id="insertMember" parameterType="Member"> 
-		INSERT INTO MEMBER(USER_NO
+<!--  일반유저 회원가입 -->
+<insert id="insertMember" parameterType="com.btw09.buyyourbrain.member.vo.Member">
+<selectKey keyProperty="userNo" resultType="int" order="BEFORE">
+      SELECT MEMBER_SEQ.NEXTVAL FROM DUAL
+    </selectKey>
+		INSERT INTO MEMBER_GENERAL(USER_NO
 						  ,USER_ID
 		                  ,PASSWORD
 		                  ,USER_NAME
 		                  ,EMAIL
 		                  ,PHONE_NUMBER
 		                  ,ADDRESS_DETAIL
-		                  ,ROLE
-		                  ,JOINED_AT)
+		                  ,JOINED_AT
+		                  ,POINTS
+		                  ,IS_DELETED
+		                  ,CREATED_AT
+		                  ,UPDATED_AT)
            		    VALUES(#{userNo}
            		    	  ,#{userId}
            		    	  ,#{userPwd}
@@ -22,9 +29,71 @@
            		    	  ,#{email}
            		    	  ,#{phone}
            		    	  ,#{address}
-           		    	  ,#{role}
-           		    	  ,#{enrollDate})
+           		    	  ,#{enrollDate}
+           		    	  ,#{points}
+           		    	  ,#{isDelete}
+           		    	  ,#{createAt}
+           		    	  ,#{updateAt})
            		    	  
 	</insert>
+
+	<!-- 고수유저 회원가입 -->
+	<insert id="insertExpert" parameterType="com.btw09.buyyourbrain.member.vo.MemberExpert">
+    	<selectKey keyProperty="userNo" resultType="int" order="BEFORE">
+       		SELECT MEMBER_SEQ.NEXTVAL FROM DUAL
+    	</selectKey>
+	    	INSERT INTO MEMBER_EXPERT (
+	        	  USER_NO
+	        	, USER_ID
+	        	, PASSWORD
+	        	, USER_NAME
+	        	, EMAIL
+	        	, PHONE_NUMBER
+	        	, ADDRESS_DETAIL
+	        	, JOINED_AT
+	        	, POINTS
+	        	, IS_DELETED
+	        	, CREATED_AT
+	        	, UPDATED_AT
+	        	, EXPERTISE
+	        	, PORTFOLIO_URL
+	    	)
+	    	VALUES (
+	        	  #{userNo}
+	        	, #{userId}
+	        	, #{userPwd}
+	        	, #{userName}
+	        	, #{email}
+	        	, #{phone}
+	        	, #{address}
+	        	, #{enrollDate}
+	        	, #{points}
+	        	, #{isDelete}
+	        	, #{createAt}
+	        	, #{updateAt}
+	        	, #{category}
+	        	, #{portUrl}
+	    	)
+	</insert>
+	
+	<!--  로그인 -->
+	<select id="loginMember" parameterType="com.btw09.buyyourbrain.member.vo.Member" resultType="com.btw09.buyyourbrain.member.vo.Member">
+        SELECT 
+              USER_NO        AS userNo
+            , USER_ID        AS userId
+            , PASSWORD       AS userPwd
+            , USER_NAME      AS userName
+            , EMAIL          AS email
+            , PHONE_NUMBER   AS phone
+            , ADDRESS_DETAIL AS address
+            , JOINED_AT      AS enrollDate
+            , POINTS         AS points
+            , IS_DELETED     AS isDelete
+            , CREATED_AT     AS createAt
+            , UPDATED_AT     AS updateAt
+        FROM MEMBER_GENERAL
+        WHERE USER_ID = #{userId}
+          AND IS_DELETED = 'N' <!-- 탈퇴회원이 아닌 경우만 -->
+    </select>
 
 </mapper>
