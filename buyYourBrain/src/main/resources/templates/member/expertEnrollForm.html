@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>일반유저 회원가입</title>
+<title>고수유저 회원가입</title>
 </head>
 <body>
 
-<h1>일반유저 회원가입</h1>
+<h1>고수유저 회원가입</h1>
 
-<form th:action="@{/member/register}" method="post" th:object="${member}">
+<form th:action="@{/member/expert/register}" method="post" th:object="${expert}">
     <label>아이디:</label>
     <input type="text" th:field="*{userId}" /><br>
 
@@ -17,6 +17,9 @@
 
     <label>이름:</label>
     <input type="text" th:field="*{userName}" /><br>
+    
+    <label>분야:</label>
+    <input type="text" th:field="*{category}" /><br>
 
     <label>이메일:</label>
     <input type="email" th:field="*{email}" /><br>
