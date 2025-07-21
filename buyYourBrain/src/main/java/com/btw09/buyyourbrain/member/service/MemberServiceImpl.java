@@ -2,10 +2,12 @@ package com.btw09.buyyourbrain.member.service;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.btw09.buyyourbrain.member.dao.MemberDao;
 import com.btw09.buyyourbrain.member.vo.Member;
 
+@Service
 public class MemberServiceImpl implements MemberService {
 	
 	 @Autowired

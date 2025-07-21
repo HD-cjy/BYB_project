@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Member {
-	
+
 	private String userNo; // USER_NO
 	private String userId; // USER_ID
 	private String userPwd; // PASSWORD
@@ -18,8 +18,10 @@ public class Member {
 	private String email; // EMAIL
 	private String phone; // PHONE_NUMBER
 	private String address; // ADDRESS_DETAIL
-	private String role;   // ROLE      
-	private Date enrollDate;  // JOINED_AT
-	
+	private Date enrollDate; // JOINED_AT
+	private int points; // POINTS
+	private String isDelete; // IS_DELETE
+	private Date createAt; // CREATE_AT
+	private Date updateAt; // UPDATE_AT
 
 }
