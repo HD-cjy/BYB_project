@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class ContracReqtDTO {
 	
+	private int contractId;
 	private int companyId;
 	private int selectedWorkerId;
 	private int amountValue;

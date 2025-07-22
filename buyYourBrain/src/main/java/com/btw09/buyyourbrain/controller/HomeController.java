@@ -23,7 +23,7 @@ public class HomeController {
     public String index(Model model) {
     	
 //    	경매 주최자 컴퍼니를 구하는 로직
-    	PartnerCorp holder = partnerserv.findSelect(2);
+    	PartnerCorp holder = partnerserv.findSelect(3);
     	
 //    	낙찰된 워커를 구하는 로직이 들어가야 함
     	Member selectedWorker = memserv.findSelect(4);
@@ -33,7 +33,40 @@ public class HomeController {
     	
     	
     	// model에 넣어주는 값 : 워커, 주최자
-        return "main/test"; // templates/main/test.html을 찾아감
+        return "main/main"; // templates/main/test.html을 찾아감
+    }
+    
+    @GetMapping("/auction/close")
+    public String init(Model model) {
+    	
+//    	경매 주최자 컴퍼니를 구하는 로직
+    	PartnerCorp holder = partnerserv.findSelect(3);
+    	
+//    	낙찰된 워커를 구하는 로직이 들어가야 함
+    	Member selectedWorker = memserv.findSelect(4);
+    	
+    	model.addAttribute("partner", holder);
+    	model.addAttribute("worker", selectedWorker);
+    	
+    	
+    	// model에 넣어주는 값 : 워커, 주최자
+        return "main/close"; // templates/main/test.html을 찾아감
+    }
+    
+    @GetMapping("/auction/closeWorker")
+    public String workerInit(Model model) {
+    	
+//    	경매 주최자 컴퍼니를 구하는 로직
+    	PartnerCorp holder = partnerserv.findSelect(2);
+    	
+//    	낙찰된 워커를 구하는 로직이 들어가야 함
+    	Member selectedWorker = memserv.findSelect(4);
+    	
+    	model.addAttribute("partner", holder);
+    	model.addAttribute("worker", selectedWorker);
+    	
+    	 return "main/worker"; 
+    	
     }
 
 }
